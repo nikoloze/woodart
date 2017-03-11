@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -58,18 +58,35 @@ function squareThis (element, ratio, minLimit)
         {
             minLimit = 0;
         }
-        var viewportWidth = window.innerWidth;
-                                                   
-            var newElementHeight = $('.effect-oscar').width() * ratio;
-            $(element).height(newElementHeight);
-            $(element).width(newElementHeight);
+		var newElementHeight = $('.effect-oscar').width() * ratio;
+		$(element).height(newElementHeight);
+		$(element).width(newElementHeight);
     }
 }
 
+function bookmarkStyleThis (element)
+{
+    // First of all, let's square the element
+    bookmarkStyle();
+
+    // Now we'll add an event listener so it happens automatically
+    window.addEventListener('resize', function(event) {
+        bookmarkStyle();
+    });
+    
+    // This is just an inner function to help us keep DRY
+    function bookmarkStyle()
+    {
+		var newElementHeight = $('.effect-oscar').width();
+		$(element).height(newElementHeight);
+		$(element).width(newElementHeight * 3 / 5.02);
+    }
+}
 
 $().ready(
 function() {
 	squareThis('.square-grid');
+	bookmarkStyleThis('.bookmark');
 });
 </script>
 
@@ -80,42 +97,43 @@ function() {
 
 <!-- Header Starts -->
 <div class="navbar-wrapper">
-      <div class="container">
+  <div class="container">
 
-        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" id="top-nav">
-          <div class="container">
-            <div class="navbar-header">
-              <!-- Logo Starts -->
-              <a class="navbar-brand" href="#home"><img src="images/logo.png" alt="logo"></a>
-              <!-- #Logo Ends -->
-
-
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-
-            </div>
+	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation" id="top-nav">
+	  <div class="container">
+		<div class="navbar-header">
+		  <!-- Logo Starts -->
+		  <a class="navbar-brand" href="#home"><img src="images/logo.png" alt="logo"></a>
+		  <!-- #Logo Ends -->
 
 
-            <!-- Nav Starts -->
-            <div class="navbar-collapse  collapse">
-              <ul class="nav navbar-nav navbar-right scroll">
-                 <li class="active"><a href="#home">Home</a></li>
-                 <li ><a href="#works">Works</a></li>
-                 <li ><a href="#about">About</a></li>         
-                 <li ><a href="#contact">Contact</a></li>
-              </ul>
-            </div>
-            <!-- #Nav Ends -->
+		  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		  </button>
 
-          </div>
-        </div>
+		</div>
 
-      </div>
-    </div>
+
+		<!-- Nav Starts -->
+		<div class="navbar-collapse  collapse">
+		  <ul class="nav navbar-nav navbar-right scroll">
+			 <li class="active"><a href="#home">Home</a></li>
+			 <li ><a href="#works">Works</a></li>
+			 <li ><a href="#bookmarks">Bookmarks</a></li>
+			 <li ><a href="#about">About</a></li>         
+			 <li ><a href="#contact">Contact</a></li>
+		  </ul>
+		</div>
+		<!-- #Nav Ends -->
+
+	  </div>
+	</div>
+
+  </div>
+</div>
 <!-- #Header Starts -->
 
 
@@ -171,7 +189,35 @@ if(count($thumbs)) {
     <figure class="effect-oscar  wowload fadeInUp">
         <img class="square-grid" src="<?php echo $thumb ?>" alt="img01"/>
         <figcaption>
-            <a href="<?php echo $thumb ?>" data-gallery></a></p>            
+            <a href="<?php echo $thumb ?>" data-gallery></a>
+        </figcaption>
+    </figure>                 
+<?php
+  }
+} else {
+  echo "No images";
+}                        
+?>  
+</div>
+<!-- works -->
+
+
+<br>
+<br>
+<!-- bookmarks -->
+<div id="bookmarks"  class=" clearfix grid"> 
+<h2 class="text-center wowload fadeInUp">Bookmarks</h2>  
+<?php
+$bookmarks = glob("images/bookmarks/*.jpg");
+
+if(count($bookmarks)) {
+  natcasesort($bookmarks);
+  foreach($bookmarks as $bookmark) {
+    ?>
+    <figure class="bookmark effect-oscar wowload fadeInUp">
+        <img class="bookmark" src="<?php echo $bookmark ?>" alt="img01"/>
+        <figcaption>
+            <a href="<?php echo $bookmark ?>" data-gallery></a>
         </figcaption>
     </figure>                 
 <?php
@@ -180,20 +226,23 @@ if(count($thumbs)) {
   echo "No images";
 }                        
 ?>
-       
-
-     
 </div>
-<!-- works -->
-                     
+<!-- bookmarks -->                      
+                                                  
 
 <!-- Cirlce Starts -->
 <div id="about"  class="container spacer about">
 <h2 class="text-center wowload fadeInUp">About Us</h2>  
   <div class="row">
   <div class="col-sm-12 wowload fadeInLeft">
-    <h4><i class="fa fa-camera-retro"></i> Introduction </h4>
-    <p>Creative digital agency for sleek and sophisticated solutions for mobile, websites and software designs, lead by passionate and uber progressive team that lives and breathes design. Creative digital agency for sleek and sophisticated solutions for mobile, websites and software designs.</p>
+    <h4><i class="fa fa-camera-retro"></i> მოგესალმებათ Wood art-ის ჯგუფი!  </h4>
+    <p>
+	<?php
+	$myfile = fopen("description.txt", "r") or die("Unable to open file!");
+	echo fread($myfile,filesize("description.txt"));
+	fclose($myfile);
+	?>
+    </p>
   </div>
   </div>
 
