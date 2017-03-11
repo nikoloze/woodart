@@ -637,6 +637,12 @@ figure.effect-oscar p {
 	transform: scale(0);
 }
 
+.imgDesc {
+    visibility: hidden;
+    opacity: 1;
+    padding-top: 350px;
+}
+
 figure.effect-oscar:hover h2 {
 	-webkit-transform: translate3d(0,0,0);
 	transform: translate3d(0,0,0);
@@ -655,6 +661,10 @@ figure.effect-oscar:hover figcaption {
 
 figure.effect-oscar:hover img {
 	opacity: 0.4;
+}
+
+figure.effect-oscar:hover .imgDesc {
+    visibility: visible;
 }
 
 /*---------------*/
