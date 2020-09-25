@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+function geoText() {
+
+    var zzz = document.getElementById("myInput").value;
+    
+    var index, chr, text = [], symbols = "abgdevzTiklmnopJrstufqRySCcZwWxjh";
+    
+    for (var i = 0; i < zzz.length; i++) {
+      chr = zzz.substr(i, 1);
+      if ((index = symbols.indexOf(chr)) >= 0) {
+        text.push(String.fromCharCode(index + 4304));
+      } else {
+        text.push(chr);
+      }
+    }
+    
+    document.getElementById("demo").innerHTML = text.join('');
+    
+  };	
+  
+</script>
+</head>
+<body>
+
+<textarea id="myInput" oninput="geoText()" style="height: 150px; width:90%; "></textarea>
+
+<p id="demo"></p>
+</body>
+</html>
